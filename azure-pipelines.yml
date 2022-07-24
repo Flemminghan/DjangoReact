@@ -20,6 +20,24 @@ steps:
     versionSpec: '$(PYTHON_VERSION)'
     architecture: 'x64'
 
+ variables:
+ logrocket_env: $(System.DefaultWorkingDirectory)\logrocket_env
+ steps:
+ - script: $(buildPython.pythonLocation)\python -m pip install --upgrade setuptools virtualenv wheel
+ displayName: install python basics
+ - script: |
+ mkdir $(logrocket_env)
+ $(buildPython.pythonLocation)\python -m virtualenv $(logrocket_env)
+ displayName: set up the virtual environment
+ - script: |
+ set Path=$(logrocket_env)\Scripts;%Path%
+ echo "We're in a virtual environment!"
+ pip install --editable .
+ displayName: do things in the virtual environment
+ env:
+ PYTHON_HOME: ""
+ VIRTUAL_ENV: $(logrocket_env)
+
 - task: PythonScript@0
   displayName: 'Export project path'
   inputs:
