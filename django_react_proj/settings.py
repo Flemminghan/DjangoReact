@@ -42,6 +42,11 @@ INSTALLED_APPS = [
     'students',
 ]
 
+#import django_react_proj
+
+# Activate Django-Heroku.
+#django_react_proj.settings(locals())
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
